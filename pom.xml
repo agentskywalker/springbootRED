@@ -20,6 +20,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<!--<org.springframework.version>5.1.14.RELEASE</org.springframework.version>-->
 		<org.springframework.version>5.2.6.RELEASE</org.springframework.version>
 	</properties>
@@ -39,17 +41,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>-->
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-
-
 
 		<!--SPRING MVC DEPENDENCIES-->
 		<!--<dependency>
@@ -91,10 +91,12 @@
 			<version>9.0.34</version>
 		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
+		<!--fot jap compilation need provide scope runtime or provided because it available in tomcat -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>9.0.34</version>
+			<scope>runtime</scope>
 		</dependency>
 
 
@@ -127,6 +129,14 @@
 			<version>3.0.0-M3</version>
 		</dependency>-->
 
+		<!--In memory DB-->
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -138,6 +148,13 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<useSystemClassLoader>false</useSystemClassLoader>
+				</configuration>
+			</plugin>
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>3.0.0-M3</version>
 				<executions>
@@ -145,8 +162,8 @@
 						<id>enforce</id>
 						<configuration>
 							<rules>
-								<!--<dependencyConvergence/>   THIS MEAN FALSE-->
-								<!--By default the non-unique versions are matched, which means the X.Y-SNAPSHOT instead of the timestamped versions. If you want to use the unique versions of the dependencies, you can set its property to true.-->
+								&lt;!&ndash;<dependencyConvergence/>   THIS MEAN FALSE&ndash;&gt;
+								&lt;!&ndash;By default the non-unique versions are matched, which means the X.Y-SNAPSHOT instead of the timestamped versions. If you want to use the unique versions of the dependencies, you can set its property to true.&ndash;&gt;
 								<dependencyConvergence>
 									<uniqueVersions>true</uniqueVersions>
 								</dependencyConvergence>
@@ -157,7 +174,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
